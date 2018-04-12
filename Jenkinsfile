@@ -1,5 +1,8 @@
 
-pipeline {
+/* There are two ways to write pipeline as code
+1. Groovy script
+2. Declarative Pipeline - Below example is declarative Pipeline */
+pipeline { 
     agent any
         tools {
         maven 'localMaven' //This was missing in original jenkinsfile
@@ -18,8 +21,9 @@ pipeline {
         }
         stage ('Deploy to Staging'){
             steps {
-                build job: 'Deploy-to-staging' // This step trigger Deploy-to-staging job that we created on Jenkins
-            }
+// This step trigger Deploy-to-staging job that we created on Jenkins         
+                build job: 'Deploy-to-staging' 
+                }
         }  
         
         stage ('Deploy to Production'){

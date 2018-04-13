@@ -17,7 +17,7 @@ pipeline {
 stages{
         stage('Build'){
             steps {
-                bat 'mvn clean package'
+                sh 'mvn clean package'
             }
             post {
                 success {
@@ -31,13 +31,13 @@ stages{
             parallel{
                 stage ('Deploy to Staging'){
                     steps {
-                        bat "echo y | pscp -i C:/Users/shres/jenkins/NorthVirgina.ppk 'C:/Program Files (x86)/Jenkins/workspace/FullyAutomated/webapp/target/*.war' ec2-user@${params.tomcat_dev}:/var/lib/tomcat7/webapps"
+                        sh "scp -i /home/vagrant/NorthVirgina.pem **/target/*.war ec2-user@${params.tomcat_dev}:/var/lib/tomcat7/webapps"
                     }
                 }
 
                 stage ("Deploy to Production"){
                     steps {
-                        bat "echo y | pscp -i C:/Users/shres/jenkins/NorthVirgina.ppk 'C:/Program Files (x86)/Jenkins/workspace/FullyAutomated/webapp/target/*.war' ec2-user@${params.tomcat_prod}:/var/lib/tomcat7/webapps"
+                        sh "scp -i /home/vagrant/NorthVirgina.pem **/target/*.war ec2-user@${params.tomcat_prod}:/var/lib/tomcat7/webapps"
                     }
                 }
             }

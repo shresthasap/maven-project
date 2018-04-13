@@ -11,7 +11,7 @@ pipeline {
      }
 
 	tools {
-	maven 'localMaven' //This was missing in original jenkinsfile
+	maven 'Maven_3.5.2' //This was missing in original jenkinsfile
 
         } 
 stages{
